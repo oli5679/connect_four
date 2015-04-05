@@ -1,0 +1,41 @@
+#board{
+    width: 80%;
+    margin: 0 auto;
+}
+
+.col{
+    display: inline-block;
+    width: 14%;
+    background: #6495ED;
+}
+
+
+.tile{
+    text-align: center;
+    margin: 2px;
+    display: inline-block;
+    width: 97%;
+    height: 90px;
+    border: 1px solid black;
+    border-radius: 100%;
+    vertical-align: top; 
+    font-size: 80px;
+    line-height: 150px;
+}
+
+.n{
+    background: white;
+}
+
+.a{
+    background: red;
+}
+
+.b{
+    background: yellow;
+}
+
+
+
+
+
