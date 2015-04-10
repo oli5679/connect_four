@@ -1,6 +1,22 @@
+html { 
+  background-image: url("../assets/white_background.jpg");
+  background-size: 120% ;
+  font-family: 'Open Sans', sans-serif;
+}
+
+h1{
+  margin: 0 auto;
+  display: inline-block;
+  font-size: 80px;
+  text-align: center;
+  padding: 10px;
+  color: #2f4f4f;
+}
+
 #board{
-    width: 80%;
+    width: 45%;
     margin: 0 auto;
+    padding: 30px;
 }
 
 .col{
@@ -14,8 +30,8 @@
     text-align: center;
     margin: 2px;
     display: inline-block;
-    width: 97%;
-    height: 90px;
+    width: 90%;
+    height: 70px;
     border: 1px solid black;
     border-radius: 100%;
     vertical-align: top; 
@@ -35,6 +51,23 @@
     background: yellow;
 }
 
+.new {
+  display: block; 
+  width: 250px; 
+  height: 60px; 
+  padding: 100 10 10 10; 
+  margin: 0 left;
+  background: #2f4f4f;
+  box-shadow: inset 0px 0px 6px #fff;
+  border: 1px solid black;
+  border-radius: 10px;
+  font-size: 30px;
+  color: white;
+}
+
+.new:hover{
+    color: #52081E;
+}
 
 
 

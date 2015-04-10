@@ -76,7 +76,7 @@ $(document).ready(function() {
     var hovClass = "b";
     if(turn ==1){hovClass = "a"};
     if(status != "n"){hovClass = "dummyclass"}
-    $(this).addClass(hovClass + " temp");
+    $(this).addClass(hovClass);
   });
 
   $("#board").on('mouseout', '.tile', function(){
