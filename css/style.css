@@ -1,8 +1,8 @@
-html { 
+/*html { 
   background-image: url("../assets/white_background.jpg");
   background-size: 120% ;
   font-family: 'Open Sans', sans-serif;
-}
+}*/
 
 h1{
   margin: 0 auto;
@@ -49,6 +49,10 @@ h1{
 
 .b{
     background: yellow;
+}
+
+.win{
+  background: grey;
 }
 
 .new {
