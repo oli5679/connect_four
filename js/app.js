@@ -1,19 +1,25 @@
 $(document).ready(function() {
+  //board state stored as 7x6 array
   var game = {
     board: [[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,1],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0]],
     nextPlay: -1,
+    //used in minimax search
     depth: 0
   }
+  //Which columns aren't full (to start with all)
   var possMoves = [0,1,2,3,4,5,6];
   var state;
+  //Purely cosmetic, after game is over, want to highlight cells on board indicating winning line. 
   var winLine = [];
+  // how deep do you want to search on the tree?
+  var maxDepth = 5;
 
-
-
+  //update board array. After column is selected, climb up column and find first empty cell, then set it equal to the color of the player whose turn it is
   makeMove = function(game, move){
     for(var i = game.board[move].length -1; i > -1; i--){
       if(game.board[move][i] == 0){
         game.board[move][i] = game.nextPlay;
+        //change current player
         game.nextPlay *= -1
         break;
       }
@@ -21,12 +27,14 @@ $(document).ready(function() {
 
   }
 
+  //having evaluated all possible moves, return one with the highest evaluation
   function maxMove(game){
     return possMoves.reduce(function(maxSoFar, current){
         return evalMove(game, current) > evalMove(game, maxSoFar) ? current : maxSoFar;
     });
   }
 
+  //same as above for lowest evaluation
   function minMove(game){
     var best = possMoves.reduce(function(minSoFar, current){
       return evalMove(game, current) < evalMove(game, minSoFar) ? current : minSoFar;
@@ -43,7 +51,7 @@ $(document).ready(function() {
     return copy;
   }
 
-  // simulates a move on a clone of current game
+  // simulates a move on a clone of current game. 
   function simMove(game, move){
     var simBoard = [];
     for(var i = 0; i < game.board.length; i++){
@@ -74,6 +82,7 @@ $(document).ready(function() {
   // simulates a move and then evaluates the game's board
   function evalMove(game, move){
     if(game.board[move][0]!==0){
+      //a bit hacky, encouraging computer to disregard moving in full columns.
       if(game.nextPlay==1){
         return -10001   
       }
@@ -81,11 +90,15 @@ $(document).ready(function() {
       return 10001;
      }
     }
+    //simulate move
     sim = simMove(game, move);
-    sim.depth++
+    //increase depth
+    sim.depth++;
+    //evaluate board using recursive 'minimax' formula
     return evalBoard(sim);
   }
 
+  //Counts how many of either counter are in a list.
   function countBoth(array, first, sec) {
     var _first = 0;
     var _sec = 0;
@@ -100,6 +113,7 @@ $(document).ready(function() {
     return [_first,_sec];
   };
 
+  //Heuristic I use to evalute the benefit of a given line. If line has none of other color, 1 for 2 connected, 7 for 3 and 1000 for 4
   evalLine = function(line) {
     var score = countBoth(line,1,-1);
     var first = score[0];
@@ -127,6 +141,7 @@ $(document).ready(function() {
   return 0;
   };
 
+  //stores winning line. Was made with help from stackoverflow :)
   function storeIfWin(board, starts, ends, steps){
     var xStart = starts[0];
     var xEnd = ends[0];
@@ -144,7 +159,6 @@ $(document).ready(function() {
       }
       }
     }
-
   };
 
   function showWin(ans, game) {
@@ -181,8 +195,9 @@ $(document).ready(function() {
     return total;
   };
   
+  //this is the core minimax function. At terminal depth, evaluate board. Else use minimax to search at greater depth.
   function evalBoard(game){
-    if(game.depth ==4){
+    if(game.depth ==maxDepth){
       return staticEvalBoard(game.board);
     }
     else if(game.nextPlay ===1){
