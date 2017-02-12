@@ -24,7 +24,6 @@ $(document).ready(function() {
         break;
       }
     }
-
   }
 
   //having evaluated all possible moves, return one with the highest evaluation
